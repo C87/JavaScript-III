@@ -156,7 +156,74 @@
   // * Create Villain and Hero constructor functions that inherit from the 
   //   Humanoid constructor function.  
 
+  function Villain (v) {
+    Humanoid.call(this, v);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  function Hero (hr) {
+    Humanoid.call(this, hr);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
   // * Give the Hero and Villains different methods that could be used to remove health 
   //   points from objects which could result in destruction if health gets to 0 or drops below 0;
 
+  const deduct = function () {
+    this.healthPoints -= 1;
+    console.log(this.takeDamage());
+    if (this.healthPoints <= 0) {
+      console.log(this.destroy());
+    }
+  }
+
+  Villain.prototype.damage = deduct;
+  Hero.prototype.damage = deduct;
+
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  const newVillan = new Villain ({
+    createdAt: new Date(),
+      dimensions: {
+        length: 1,
+        width: 2,
+        height: 4,
+      },
+      healthPoints: 10,
+      name: 'Araf',
+      team: 'Kingdom',
+      weapons: [
+        'Giant Sword',
+        'Dagger',
+      ],
+      language: 'Elvish',
+    });
+
+    const newHero = new Hero ({
+    createdAt: new Date(),
+      dimensions: {
+        length: 5,
+        width: 1,
+        height: 2,
+      },
+      healthPoints: 3,
+      name: 'Queen Shire',
+      team: 'The Castle',
+      weapons: [
+        'Bow',
+      ],
+      language: 'Castle Speak',
+    });
+
+    newVillan.damage();
+    newVillan.damage();
+    newHero.damage();
+    newVillan.damage();
+    newHero.damage();
+    newVillan.damage();
+    newHero.damage();
+    newHero.damage();
+
+
